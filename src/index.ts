@@ -21,8 +21,11 @@ client.once('ready', () => {
 });
 
 client.on('messageCreate', (message) => {
-  if (message.channelId !== '916013398200811632' || message.author.bot) return;
-  message.delete();
+  try {
+    if (message.channelId !== '916013398200811632' || message.author.bot)
+      return;
+    message.delete();
+  } catch (error) {}
 });
 
 client.login(process.env.DISCORD_TOKEN);
