@@ -1,13 +1,19 @@
 import axios from 'axios';
 
+import { client } from '.';
+
 export const headers = { authorization: process.env.API_AUTH };
 
-export async function isUserRegistered(uuid: string): Promise<boolean> {
+export async function isUserRegistered(
+  type: 'player' | 'discord',
+  uuid?: string,
+  discordId?: string
+): Promise<boolean> {
   return new Promise<boolean>((resolve, reject) => {
     axios
       .get(`${process.env.API_ENDPOINT}/verification/linkTable`, {
         headers,
-        params: { uuid, type: 'player' },
+        params: { uuid, type, discordId },
       })
       .catch((error) => {
         resolve(false);
@@ -16,4 +22,57 @@ export async function isUserRegistered(uuid: string): Promise<boolean> {
         resolve(true);
       });
   });
+}
+
+export function linkedPlayerWorker() {
+  setInterval(async () => {
+    const players = await (
+      await axios.get(`${process.env.API_ENDPOINT}/verification/linkTable`, {
+        headers,
+        params: { type: 'all' },
+      })
+    ).data;
+
+    const guild = client.guilds.cache.get('880500602910679112');
+
+    for (const discordId in players.verificationLinkTable) {
+      const guildMember = await guild.members.fetch({ user: discordId });
+
+      const guildMemberRole = guildMember.roles.highest.id;
+
+      let rank: string;
+
+      switch (guildMemberRole) {
+        case '880500603128803333': // Owner role
+          rank = 'Owner';
+          break;
+        case '894675838581211148': // Admin role
+          rank = 'Admin';
+          break;
+        case '892654032492052510': // Developer role
+          rank = 'Developer';
+          break;
+        case '905825594892234812': // Patreon role
+        case '915324305972277259': // OG Booster
+          rank = 'Supporter';
+          break;
+        default:
+          rank = 'User';
+          break;
+      }
+
+      await axios
+        .post(
+          `${process.env.API_ENDPOINT}/discord/syncPlayer`,
+          {
+            discordId,
+            rank,
+          },
+          { headers }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, 15 * 60 * 1000); // 15 minutes
 }

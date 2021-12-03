@@ -19,10 +19,17 @@ export default async function run(interaction: CommandInteraction) {
       .setDescription(`Player \`${username}\` does not exist`);
     interaction.reply({ embeds: [embed], ephemeral: true });
   } else {
-    if ((await isUserRegistered(uuid as string)) === true) {
+    if ((await isUserRegistered('player', uuid as string)) === true) {
       embed
         .setColor('GREEN')
         .setDescription(`Player \`${username}\` is already registered`);
+      interaction.reply({ embeds: [embed], ephemeral: true });
+    } else if (
+      (await isUserRegistered('discord', null, interaction.user.id)) === true
+    ) {
+      embed
+        .setColor('RED')
+        .setDescription('This Discord account is already linked to a player');
       interaction.reply({ embeds: [embed], ephemeral: true });
     } else {
       axios

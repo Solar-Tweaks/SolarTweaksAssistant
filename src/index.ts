@@ -11,11 +11,14 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import handleCommands from './commands/commandHandler';
+import { linkedPlayerWorker } from './utils';
 // import sendRegisterMessage from './sendRegisterMessage';
 
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   handleCommands(client);
+
+  linkedPlayerWorker();
 
   // sendRegisterMessage();
 });
