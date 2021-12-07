@@ -1,7 +1,12 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import axios from 'axios';
 
-import { isUserRegistered, headers } from '../utils';
+import {
+  isUserRegistered,
+  headers,
+  getRankFromHighestRole,
+  syncPlayer,
+} from '../utils';
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -42,10 +47,20 @@ export default async function run(interaction: CommandInteraction) {
           },
           { headers }
         )
-        .then(() => {
+        .then(async () => {
+          const guildMember = await interaction.guild.members.fetch({
+            user: interaction.user.id,
+          });
+          const guildMemberRole = guildMember.roles.highest.id;
+          await syncPlayer(
+            interaction.user.id,
+            getRankFromHighestRole(guildMemberRole)
+          );
           embed
             .setColor('GREEN')
-            .setDescription(`Your account has been verified!`);
+            .setDescription(
+              `Your account has been successfuly verified and synced!\nYou may have to restart your game to see cosmetics in your inventory.`
+            );
           interaction.reply({ embeds: [embed], ephemeral: true });
         })
         .catch((error) => {

@@ -40,39 +40,48 @@ export function linkedPlayerWorker() {
 
       const guildMemberRole = guildMember.roles.highest.id;
 
-      let rank: string;
+      let rank = getRankFromHighestRole(guildMemberRole);
 
-      switch (guildMemberRole) {
-        case '880500603128803333': // Owner role
-          rank = 'Owner';
-          break;
-        case '894675838581211148': // Admin role
-          rank = 'Admin';
-          break;
-        case '892654032492052510': // Developer role
-          rank = 'Developer';
-          break;
-        case '905825594892234812': // Patreon role
-        case '915324305972277259': // OG Booster
-          rank = 'Supporter';
-          break;
-        default:
-          rank = 'User';
-          break;
-      }
-
-      await axios
-        .post(
-          `${process.env.API_ENDPOINT}/discord/syncPlayer`,
-          {
-            discordId,
-            rank,
-          },
-          { headers }
-        )
-        .catch((error) => {
-          console.log(error);
-        });
+      await syncPlayer(discordId, rank);
     }
   }, 15 * 60 * 1000); // 15 minutes
+}
+
+export async function syncPlayer(discordId: string, rank: string) {
+  await axios
+    .post(
+      `${process.env.API_ENDPOINT}/discord/syncPlayer`,
+      {
+        discordId,
+        rank,
+      },
+      { headers }
+    )
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+export function getRankFromHighestRole(guildMemberRole) {
+  let rank: string;
+  switch (guildMemberRole) {
+    case '880500603128803333': // Owner role
+      rank = 'Owner';
+      break;
+    case '894675838581211148': // Admin role
+      rank = 'Admin';
+      break;
+    case '892654032492052510': // Developer role
+      rank = 'Developer';
+      break;
+    case '905825594892234812': // Patreon role
+    case '915324305972277259': // OG Booster
+    case '895039643903479808': // Helper role
+      rank = 'Supporter';
+      break;
+    default:
+      rank = 'User';
+      break;
+  }
+  return rank;
 }
