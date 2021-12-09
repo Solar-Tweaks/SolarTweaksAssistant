@@ -74,7 +74,8 @@ export function getRankFromHighestRole(guildMemberRole) {
     case '892654032492052510': // Developer role
       rank = 'Developer';
       break;
-    case '905825594892234812': // Patreon role
+    case '905825594892234812': // Solar+ role
+    case '916055151410835587': // All Cosmetics role
     case '915324305972277259': // OG Booster
     case '895039643903479808': // Helper role
       rank = 'Supporter';
