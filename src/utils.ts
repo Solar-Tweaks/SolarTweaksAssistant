@@ -36,13 +36,17 @@ export function linkedPlayerWorker() {
     const guild = client.guilds.cache.get('880500602910679112');
 
     for (const discordId in players.verificationLinkTable) {
-      const guildMember = await guild.members.fetch({ user: discordId });
+      try {
+        const guildMember = await guild.members.fetch({ user: discordId });
 
-      const guildMemberRole = guildMember.roles.highest.id;
+        const guildMemberRole = guildMember.roles.highest.id;
 
-      let rank = getRankFromHighestRole(guildMemberRole);
+        let rank = getRankFromHighestRole(guildMemberRole);
 
-      await syncPlayer(discordId, rank);
+        await syncPlayer(discordId, rank);
+      } catch (error) {
+        console.log(`Unable to fetch user ${discordId}`);
+      }
     }
   }, 15 * 60 * 1000); // 15 minutes
 }
