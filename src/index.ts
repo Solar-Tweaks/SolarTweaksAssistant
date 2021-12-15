@@ -27,7 +27,7 @@ client.on('messageCreate', (message) => {
   try {
     if (message.channelId !== '916013398200811632' || message.author.bot)
       return;
-    message.delete();
+    message.delete().catch(() => console.log('Unable to delete message'));
   } catch (error) {}
 });
 
