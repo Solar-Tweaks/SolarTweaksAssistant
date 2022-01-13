@@ -9,11 +9,7 @@ export default function (oldMessage: Message, newMessage: Message): void {
       name: oldMessage.author.username,
       iconURL: oldMessage.author.avatarURL(),
     })
-    .setTitle(
-      `Message edited in #${
-        (oldMessage.channel as TextChannel | ThreadChannel).name
-      }`
-    )
+    .setTitle(`Message edited in #${(oldMessage.channel as TextChannel).name}`)
     .setDescription(
       '```diff\n- ' + oldMessage.content + '\n+ ' + newMessage.content + '```'
     )

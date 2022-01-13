@@ -13,11 +13,7 @@ export default async function (
   if (message.author.bot) return;
   const embed = new MessageEmbed()
     .setColor('RED')
-    .setTitle(
-      `Message deleted in #${
-        (message.channel as TextChannel | ThreadChannel).name
-      }`
-    )
+    .setTitle(`Message deleted in #${(message.channel as TextChannel).name}`)
     .setAuthor({
       name: message.author.username,
       iconURL: message.author.avatarURL(),
