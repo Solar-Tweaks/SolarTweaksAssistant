@@ -10,25 +10,13 @@ export const client = new Client({
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import handleCommands from './commands/commandHandler';
-import { linkedPlayerWorker } from './utils';
-// import sendRegisterMessage from './sendRegisterMessage';
+import handleEvents from './events/handler';
 
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  handleCommands(client);
 
-  linkedPlayerWorker();
-
-  // sendRegisterMessage();
-});
-
-client.on('messageCreate', (message) => {
-  try {
-    if (message.channelId !== '916013398200811632' || message.author.bot)
-      return;
-    message.delete().catch(() => console.log('Unable to delete message'));
-  } catch (error) {}
+  console.log('Registering event listeners');
+  handleEvents(client);
 });
 
 client.login(process.env.DISCORD_TOKEN);
