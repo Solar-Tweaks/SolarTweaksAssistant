@@ -1,10 +1,4 @@
-import {
-  Message,
-  MessageEmbed,
-  PartialMessage,
-  TextChannel,
-  ThreadChannel,
-} from 'discord.js';
+import { Message, MessageEmbed, PartialMessage, TextChannel } from 'discord.js';
 import sendLogMessage from '../utils/sendLogMessage';
 
 export default async function (

@@ -1,4 +1,4 @@
-import { Message, MessageEmbed, TextChannel, ThreadChannel } from 'discord.js';
+import { Message, MessageEmbed, TextChannel } from 'discord.js';
 import sendLogMessage from '../utils/sendLogMessage';
 
 export default function (oldMessage: Message, newMessage: Message): void {
