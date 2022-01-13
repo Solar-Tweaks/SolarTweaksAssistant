@@ -6,17 +6,17 @@ import {
 } from 'discord.js';
 import sendLogMessage from '../utils/sendLogMessage';
 
-export default function (interaction: CommandInteraction): void {
+export default async function (interaction: CommandInteraction): Promise<void> {
   const channel = interaction.channel as TextChannel | ThreadChannel;
 
-  interaction.deferReply({
+  await interaction.deferReply({
     ephemeral: true,
   });
 
   channel
     .bulkDelete(interaction.options.getInteger('count', true))
-    .then(() => {
-      interaction.editReply({
+    .then(async () => {
+      await interaction.editReply({
         embeds: [
           new MessageEmbed({
             color: 'GREEN',
