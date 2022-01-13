@@ -40,7 +40,7 @@ export default async function (
 
       if (typeof executor !== 'string') {
         if (executor.id !== message.author.id) {
-          embed.description += `\n**Deleted by:** ${executor.username}`;
+          embed.description += `**Deleted by:** <@${executor.id}>`;
         }
       }
     }
