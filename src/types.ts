@@ -1,1 +1,1 @@
-export type LogThreadType = 'messages' | 'joinsLeaves';
+export type LogThreadType = 'messages' | 'joinsLeaves' | 'modLogs';

@@ -39,7 +39,7 @@ export default async function (
       const executor = entry.executor ? entry.executor : 'Unknown';
 
       if (typeof executor !== 'string') {
-        if (executor.id !== message.author.id && !executor.bot) {
+        if (executor.id !== message.author.id && executor.bot) {
           embed.description += `\n**Deleted by:** <@${executor.id}>`;
         }
       }
