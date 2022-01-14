@@ -69,7 +69,7 @@ export default async function (interaction: CommandInteraction): Promise<void> {
             name: interaction.user.username,
             iconURL: interaction.user.avatarURL(),
           },
-          title: 'Softban',
+          title: '<:justice:931580988474163201> Softban',
           description: `Softbanned ${member.user.username} ||*(${
             member.user.id
           })*||\n\n**Reason:** ${interaction.options.getString(

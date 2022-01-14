@@ -8,7 +8,7 @@ export default function (member: GuildMember): void {
       name: member.user.username,
       iconURL: member.user.avatarURL(),
     })
-    .setTitle(`Someone joined the server!`)
+    .setTitle(`<:join:931581032799555585> Someone joined the server!`)
     .setDescription(
       `<@${
         member.user.id

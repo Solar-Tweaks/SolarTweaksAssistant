@@ -34,7 +34,7 @@ export default async function (interaction: CommandInteraction): Promise<void> {
             name: interaction.user.username,
             iconURL: interaction.user.avatarURL(),
           },
-          title: 'Purge',
+          title: '<:purge:931580968035315813> Purge',
           description: `${
             interaction.user.username
           } purged ${interaction.options.getInteger(
