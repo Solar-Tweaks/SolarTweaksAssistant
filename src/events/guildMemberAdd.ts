@@ -12,7 +12,7 @@ export default function (member: GuildMember): void {
     .setDescription(
       `<@${
         member.user.id
-      }> created his account on ${member.user.createdAt.toLocaleDateString()} *(<t:${
+      }> created their account on ${member.user.createdAt.toLocaleDateString()} *(<t:${
         (member.user.createdTimestamp - (member.user.createdTimestamp % 1000)) /
         1000
       }:R>)*`

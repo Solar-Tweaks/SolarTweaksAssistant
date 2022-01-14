@@ -9,9 +9,7 @@ import sendLogMessage from '../utils/sendLogMessage';
 export default async function (interaction: CommandInteraction): Promise<void> {
   const channel = interaction.channel as TextChannel | ThreadChannel;
 
-  await interaction.deferReply({
-    ephemeral: true,
-  });
+  await interaction.deferReply({ ephemeral: true });
 
   channel
     .bulkDelete(interaction.options.getInteger('count', true))
@@ -43,6 +41,10 @@ export default async function (interaction: CommandInteraction): Promise<void> {
             'count',
             true
           )} messages in <#${channel.id}>`,
+          footer: {
+            text: 'Purged',
+          },
+          timestamp: new Date(),
         }),
         'modLogs'
       );

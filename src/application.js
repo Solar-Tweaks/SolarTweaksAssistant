@@ -18,6 +18,33 @@ const commands = [
       },
     ],
   },
+  {
+    name: 'softban',
+    type: 1,
+    description:
+      'Kicks a user from the server and deletes their messages in a selected period of time',
+    options: [
+      {
+        name: 'member',
+        type: 6,
+        description: 'The member to softban',
+        required: true,
+      },
+      {
+        name: 'reason',
+        type: 3,
+        description: 'The reason for the softban',
+        required: true,
+      },
+      {
+        name: 'deletedays',
+        type: 4,
+        description:
+          'The number of days to delete the messages (betwen 1 and 7)',
+        required: false,
+      },
+    ],
+  },
 ];
 
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
