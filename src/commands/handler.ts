@@ -4,14 +4,14 @@ import purge from './purge';
 import softban from './softban';
 
 export default function (client: Client): void {
-  client.on('interactionCreate', (interaction) => {
+  client.on('interactionCreate', async (interaction) => {
     if (interaction.isCommand()) {
       switch (interaction.commandName) {
         case 'purge':
-          purge(interaction);
+          await purge(interaction);
           break;
         case 'softban':
-          softban(interaction);
+          await softban(interaction);
           break;
         default:
           break;

@@ -35,7 +35,7 @@ export default async function (interaction: CommandInteraction): Promise<void> {
           new MessageEmbed({
             color: 'RED',
             title: 'Softban failed',
-            description: `Failed to softban <@${member.user.username}>: ${error.message}\n\n\`\`\`${error.stack}\`\`\``,
+            description: `Failed to softban <@${member.user.id as string}>: ${error.message as string}\n\n\`\`\`${error.stack as string}\`\`\``,
             timestamp: new Date(),
           }),
         ],

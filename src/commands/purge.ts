@@ -40,7 +40,7 @@ export default async function (interaction: CommandInteraction): Promise<void> {
           } purged ${interaction.options.getInteger(
             'count',
             true
-          )} messages in <#${channel.id}>`,
+          )} messages in <#${channel.id as string}>`,
           footer: {
             text: 'Purged',
           },
@@ -56,7 +56,7 @@ export default async function (interaction: CommandInteraction): Promise<void> {
           new MessageEmbed({
             color: 'RED',
             title: 'Purge failed',
-            description: `Failed to purge messages: ${error.message}\n\n\`\`\`${error.stack}\`\`\``,
+            description: `Failed to purge messages: ${error.message as string}\n\n\`\`\`${error.stack as string}\`\`\``,
             timestamp: new Date(),
           }),
         ],
