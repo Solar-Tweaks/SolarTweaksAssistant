@@ -56,7 +56,9 @@ export default async function (interaction: CommandInteraction): Promise<void> {
           new MessageEmbed({
             color: 'RED',
             title: 'Purge failed',
-            description: `Failed to purge messages: ${error.message as string}\n\n\`\`\`${error.stack as string}\`\`\``,
+            description: `Failed to purge messages: ${
+              error.message as string
+            }\n\n\`\`\`${error.stack as string}\`\`\``,
             timestamp: new Date(),
           }),
         ],
