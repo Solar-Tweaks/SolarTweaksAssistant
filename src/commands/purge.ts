@@ -50,8 +50,7 @@ export default async function (interaction: CommandInteraction): Promise<void> {
       );
     })
     .catch((error) => {
-      console.error(error);
-      interaction.reply({
+      interaction.editReply({
         embeds: [
           new MessageEmbed({
             color: 'RED',
