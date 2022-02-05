@@ -9,7 +9,7 @@ export default function (member: GuildMember | PartialGuildMember): void {
       iconURL: member.user.avatarURL(),
     })
     .setTitle(
-      `<:leave:931581010443927583> ${member.user.username} left the server!`
+      `<:leave:931581010443927583> ${member.user.username as string} left the server!`
     )
     .setFooter({ text: 'Left' })
     .setTimestamp();
