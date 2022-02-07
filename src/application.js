@@ -9,6 +9,7 @@ const commands = [
     name: 'purge',
     type: 1,
     description: 'Deletes a number of messages from a channel',
+    default_permission: false,
     options: [
       {
         name: 'count',
@@ -23,6 +24,7 @@ const commands = [
     type: 1,
     description:
       'Kicks a user from the server and deletes their messages in a selected period of time',
+    default_permission: false,
     options: [
       {
         name: 'member',
@@ -47,6 +49,39 @@ const commands = [
   },
 ];
 
+const permissions = [
+  {
+    id: '931281972611940362', // Purge
+    permissions: [
+      {
+        id: constants.roles.OWNER,
+        type: 1,
+        permission: true,
+      },
+      {
+        id: constants.roles.ADMINISTRATOR,
+        type: 1,
+        permission: true,
+      },
+    ],
+  },
+  {
+    id: '931296374044106834', // Softban
+    permissions: [
+      {
+        id: constants.roles.OWNER,
+        type: 1,
+        permission: true,
+      },
+      {
+        id: constants.roles.ADMINISTRATOR,
+        type: 1,
+        permission: true,
+      },
+    ],
+  },
+];
+
 const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 
 (async () => {
@@ -55,12 +90,19 @@ const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 
     await rest.put(
       Routes.applicationGuildCommands(constants.clientId, constants.serverId),
-      {
-        body: commands,
-      }
+      { body: commands }
     );
 
     console.log('Successfully reloaded application (/) commands.');
+
+    console.log('Started refreshing application (/) commands permissions.');
+
+    await rest.put(
+      `/applications/${constants.clientId}/guilds/${constants.serverId}/commands/permissions`,
+      { body: permissions }
+    );
+
+    console.log('Successfully reloaded application (/) commands permissions.');
   } catch (error) {
     console.error(error);
   }
