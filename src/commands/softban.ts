@@ -66,7 +66,7 @@ export default async function (interaction: CommandInteraction): Promise<void> {
       });
       sendLogMessage(
         new MessageEmbed({
-          color: 'DARK_RED',
+          color: 'RED',
           author: {
             name: interaction.user.username,
             iconURL: interaction.user.avatarURL(),
@@ -79,7 +79,7 @@ export default async function (interaction: CommandInteraction): Promise<void> {
             true
           )}`,
           footer: {
-            text: 'Softabanned',
+            text: 'Softbanned',
           },
           timestamp: new Date(),
         }),
