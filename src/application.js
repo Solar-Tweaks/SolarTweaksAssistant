@@ -42,7 +42,7 @@ const commands = [
         name: 'deletedays',
         type: 4,
         description:
-          'The number of days to delete the messages (betwen 1 and 7)',
+          'The number of days to delete the messages (between 1 and 7)',
         required: false,
       },
     ],
