@@ -9,7 +9,7 @@ export default function (
   const newStatus = newMember.premiumSince;
 
   if (!oldStatus && newStatus)
-    if (newMember.guild.premiumSubscriptionCount <= 14)
+    if (newMember.guild.premiumSubscriptionCount <= 16)
       newMember.roles.add(constants.roles.EARLY_SERVER_BOOSTER);
 
   if (oldStatus && !newStatus)
